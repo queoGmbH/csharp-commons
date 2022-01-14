@@ -26,9 +26,15 @@ namespace Build.Common.Services.Impl
                 switch (branch)
                 {
                     case Branches.Main:
+                    case Branches.Master:
                         logInformation.Invoke("Remote Master Branch - es werden keine Tags an die Version angefügt.");
                         tag = string.Empty;
                         build = string.Empty;
+                        break;
+                    case Branches.Develop:
+                        logInformation.Invoke("Remote Develop Branch - es wird Beta + Buildnummer angefügt.");
+                        tag = "beta";
+                        build = buildNumber;
                         break;
                     default:
                         logInformation.Invoke("Remote Branch - es wird der Branchname + Buildnummer angefügt.");
@@ -39,9 +45,26 @@ namespace Build.Common.Services.Impl
             }
             else
             {
-                logInformation.Invoke("Lokaler Branch - es werden Datum + Uhrzeit für lokalen Build angefügt.");
-                tag = $"local-{_branchService.Clean(branchName)}";
-                build = DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss");
+                logInformation.Invoke("Lokaler Branch - es werden local und Datum + Uhrzeit für lokalen Build angefügt.");
+                switch (branch)
+                {
+                    case Branches.Main:
+                    case Branches.Master:
+                        logInformation.Invoke("Lokaler Master Branch - es werden keine Tags an die Version angefügt.");
+                        tag = "local";
+                        build = string.Empty;
+                        break;
+                    case Branches.Develop:
+                        logInformation.Invoke("Remote Develop Branch - es wird Beta + Buildnummer angefügt.");
+                        tag = "local-beta";
+                        build = DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss"); ;
+                        break;
+                    default:
+                        logInformation.Invoke("Remote Branch - es wird der Branchname + Buildnummer angefügt.");
+                        tag = $"local-{_branchService.Clean(branchName)}";
+                        build = DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss"); ;
+                        break;
+                }
             }
 
             return new SemVersion(versionParts[0].AsInt(), versionParts[1].AsInt(), versionParts[2].AsInt(), tag,
