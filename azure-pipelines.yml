@@ -25,7 +25,7 @@ pool:
 
 steps:
 # .NET Core 3.1 installieren, da es nicht mehr per default installiert ist
-# wird derzeit noch für die Testausführung benötigt, bis die Testprojekte auf .NET 6.0 angehoben sind
+# wird derzeit noch fÃ¼r die TestausfÃ¼hrung benÃ¶tigt, bis die Testprojekte auf .NET 6.0 angehoben sind
 - task: UseDotNet@2
   displayName: 'Use .NET Core sdk'
   inputs:
