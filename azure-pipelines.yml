@@ -32,11 +32,22 @@ stages:
         command: 'custom'
         custom: 'tool'
         arguments: 'install -g dotnet-format --ignore-failed-sources'
-    
+    - task: SonarCloudPrepare@1
+      inputs:
+        SonarCloud: 'SonarCloud für Commons'
+        organization: 'queo-software'
+        scannerMode: 'MSBuild'
+        projectKey: 'queo-software_queo-csharp-commons'
+        projectName: 'queo-csharp-commons'
     - task: PowerShell@2
       inputs:
         filePath: 'build.ps1'
         args: '--target=BuildAndTest'
+    
+    - task: SonarCloudAnalyze@1
+      inputs:
+        jdkversion: 'JAVA_HOME_17_X64'
+
     - task: PublishCodeCoverageResults@1
       inputs:
         codeCoverageTool: Cobertura
