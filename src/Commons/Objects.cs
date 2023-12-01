@@ -3,7 +3,7 @@ using System.Linq.Expressions;
 
 namespace Queo.Commons
 {
-    public class Objects
+    public static class Objects
     {
         /// <summary>
         ///     Ermittelt den Namen eines Property anhand der Expression.
