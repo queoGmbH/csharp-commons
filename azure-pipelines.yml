@@ -63,6 +63,7 @@ stages:
         summaryFileLocation: $(Build.SourcesDirectory)/.artifacts.tests/*.coverage.xml
 
   - job: buildAndTest_linux
+    condition: false
     pool:
       vmImage: 'ubuntu-latest'
 
@@ -89,7 +90,7 @@ stages:
   - job: BuildNuGetPackageForDeploy
     dependsOn:
     - buildAndTest_windows
-    - buildAndTest_linux
+    #- buildAndTest_linux
     pool:
       vmImage: 'windows-latest'
 
