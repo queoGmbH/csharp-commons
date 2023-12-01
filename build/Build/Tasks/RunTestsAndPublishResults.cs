@@ -25,7 +25,8 @@ namespace Build
                     testProject.Key,
                     Path.Combine(context.Environment.WorkingDirectory.FullPath, testProject.Value));
             }
-
+            string testArtifactsPath = Path.Combine(context.Environment.WorkingDirectory.FullPath,
+                $"{context.General.ArtifactsDir}.tests");
             try
             {
                 foreach (KeyValuePair<string, string> nameAndPath in testProjects)
@@ -41,7 +42,7 @@ namespace Build
                             Configuration = context.Tests.BuildConfig,
                             ArgumentCustomization = delegate (ProcessArgumentBuilder argument)
                             {
-                                argument.Append(new TextArgument(" /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura"));
+                                argument.Append(new TextArgument($" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput={testArtifactsPath}/{nameAndPath.Key}.coverage.xml"));
                                 return argument;
                             }
                         });
