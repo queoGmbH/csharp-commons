@@ -10,8 +10,5 @@ namespace Build
 {
     public partial class BuildAndTest : FrostingTask<Context>
     {
-        public override void Run(Context context)
-        {
-        }
     }
 }
