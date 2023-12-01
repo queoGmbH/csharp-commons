@@ -32,6 +32,7 @@ stages:
         command: 'custom'
         custom: 'tool'
         arguments: 'install -g dotnet-format --ignore-failed-sources'
+
     - task: SonarCloudPrepare@1
       inputs:
         SonarCloud: 'SonarCloud für Commons'
@@ -39,6 +40,10 @@ stages:
         scannerMode: 'MSBuild'
         projectKey: 'queo-software_queo-csharp-commons'
         projectName: 'queo-csharp-commons'
+        extraProperties: |
+          sonar.cs.opencover.reportsPaths=$(Build.SourcesDirectory)/.artifacts.tests/*.coverage.xml
+          sonar.cs.nunit.reportsPaths=$(Build.SourcesDirectory)/.artifacts.tests/*.TestResult.xml
+
     - task: PowerShell@2
       inputs:
         filePath: 'build.ps1'
@@ -48,10 +53,14 @@ stages:
       inputs:
         jdkversion: 'JAVA_HOME_17_X64'
 
+    - task: SonarCloudPublish@1
+      inputs:
+        pollingTimeoutSec: '300'
+
     - task: PublishCodeCoverageResults@1
       inputs:
         codeCoverageTool: Cobertura
-        summaryFileLocation: $(System.DefaultWorkingDirectory)/tests/**/coverage.cobertura.xml
+        summaryFileLocation: $(Build.SourcesDirectory)/.artifacts.tests/*.coverage.xml
 
   - job: buildAndTest_linux
     condition: false
