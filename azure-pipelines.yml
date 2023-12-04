@@ -58,6 +58,7 @@ stages:
         pollingTimeoutSec: '300'
 
   - job: buildAndTest_linux
+    dependsOn: buildAndTest_windows
     pool:
       vmImage: 'ubuntu-latest'
 
