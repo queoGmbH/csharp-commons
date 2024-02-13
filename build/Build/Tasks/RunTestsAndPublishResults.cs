@@ -1,9 +1,13 @@
 using System.Collections.Generic;
 
+using Build.Common.Builder;
+
 using Cake.Common.Build;
 using Cake.Common.Build.AzurePipelines.Data;
+using Cake.Common.Diagnostics;
 using Cake.Common.Tools.DotNet;
 using Cake.Common.Tools.DotNet.Test;
+using Cake.Common.Tools.ReportGenerator;
 using Cake.Core.IO;
 using Cake.Core.IO.Arguments;
 using Cake.Frosting;
@@ -31,6 +35,20 @@ namespace Build
             {
                 foreach (KeyValuePair<string, string> nameAndPath in testProjects)
                 {
+                    string coverletArgs = new DotNetTestCoverletParameterBuilder()
+                    {
+                        CollectCoverage = true,
+                        CoverletOutputFormat = "opencover",
+                        CoverletOutput = $"{testArtifactsPath}/{nameAndPath.Key}.coverage.xml",
+                        Exclude = new List<string> {
+                            "[*.Tests?]*" /* test projects */
+                        },
+                        ExcludeByFile = new List<string>
+                        {
+                        }
+                    };
+
+                    context.Information($"Coverlet args: {coverletArgs}");
 
                     context.DotNetTest(
                         nameAndPath.Value,
@@ -42,11 +60,19 @@ namespace Build
                             Configuration = context.Tests.BuildConfig,
                             ArgumentCustomization = delegate (ProcessArgumentBuilder argument)
                             {
-                                argument.Append(new TextArgument($" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput={testArtifactsPath}/{nameAndPath.Key}.coverage.xml"));
+                                argument.Append(new TextArgument(coverletArgs));
                                 return argument;
                             }
                         });
                 }
+                context.ReportGenerator(new GlobPattern($"{testArtifactsPath}/*.coverage.xml"), Path.Combine(testArtifactsPath, "coverage"), new ReportGeneratorSettings()
+                {
+                    ReportTypes = new List<ReportGeneratorReportType>()
+                {
+                    ReportGeneratorReportType.Cobertura,
+                    ReportGeneratorReportType.HtmlInline_AzurePipelines
+                }
+                });
             }
             finally
             {
@@ -67,6 +93,13 @@ namespace Build
                                 TestRunner = AzurePipelinesTestRunnerType.VSTest
                             });
                     }
+
+                    context.AzurePipelines().Commands.PublishCodeCoverage(new AzurePipelinesPublishCodeCoverageData
+                    {
+                        CodeCoverageTool = AzurePipelinesCodeCoverageToolType.Cobertura,
+                        SummaryFileLocation = Path.Combine(testArtifactsPath, "coverage/Cobertura.xml"),
+                        ReportDirectory = Path.Combine(testArtifactsPath, "coverage")
+                    });
                 }
             }
         }
