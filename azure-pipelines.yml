@@ -56,7 +56,18 @@ stages:
         command: 'custom'
         custom: 'tool'
         arguments: 'install -g dotnet-format --ignore-failed-sources'
-    
+    - task: DotNetCoreCLI@2
+      displayName: "List sdk versions"
+      inputs: 
+        command: custom
+        custom: "--list-sdks"
+
+    - task: DotNetCoreCLI@2
+      displayName: "List dotnet runtimes"
+      inputs: 
+        command: custom
+        custom: "--list-runtimes"
+        
     - task: ShellScript@2
       inputs:
         scriptPath: 'build.sh'
