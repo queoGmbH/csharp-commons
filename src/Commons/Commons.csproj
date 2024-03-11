@@ -15,5 +15,4 @@
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/queoGmbH/csharp-commons/</RepositoryUrl>
   </PropertyGroup>
-
 </Project>
