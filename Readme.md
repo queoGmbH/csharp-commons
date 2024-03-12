@@ -15,7 +15,6 @@ Queo.Commons is the basic package for using the various Queo.Commons functionali
 ## How to use it
 - include Nuget-Package (queo.commons)
 
-```powershell
-Find-Package queo.commons 
-Install-Package queo.commons -ProjectName MyProject
+```csharp
+<PackageReference Include="Queo.Commons" Version="3.0.0" />
 ```
