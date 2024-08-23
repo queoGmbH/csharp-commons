@@ -3,6 +3,7 @@ using System.Globalization;
 using System.Threading;
 
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 using Queo.Commons.Utils;
 
@@ -24,7 +25,7 @@ namespace Queo.Commons.Tests.Utils
 
             // Culture wieder zurückstellen!
             // then:
-            Assert.AreEqual(expectedFirstDayInWeek, actualFirstDayOfWeek);
+            ClassicAssert.AreEqual(expectedFirstDayInWeek, actualFirstDayOfWeek);
         }
 
         [Test]
@@ -37,7 +38,7 @@ namespace Queo.Commons.Tests.Utils
             // when:
             DateTime actualFirstDayOfWeek = DateTimeUtils.GetFirstDayOfWeek(dayInWeek);
             // then:
-            Assert.AreEqual(expectedFirstDayOfWeek, actualFirstDayOfWeek);
+            ClassicAssert.AreEqual(expectedFirstDayOfWeek, actualFirstDayOfWeek);
         }
 
         [Test]
@@ -49,7 +50,7 @@ namespace Queo.Commons.Tests.Utils
             // when:
             DateTime actualFirstDayOfWeek = DateTimeUtils.GetFirstDayOfWeek(expectedFirstDayOfWeek);
             // then:
-            Assert.AreEqual(expectedFirstDayOfWeek, actualFirstDayOfWeek);
+            ClassicAssert.AreEqual(expectedFirstDayOfWeek, actualFirstDayOfWeek);
         }
 
         [Test]
@@ -61,7 +62,7 @@ namespace Queo.Commons.Tests.Utils
             // when:
             DateTime actualMaxDateTime = DateTimeUtils.Max(firstDay, secondDay);
             // then:
-            Assert.AreEqual(firstDay, actualMaxDateTime);
+            ClassicAssert.AreEqual(firstDay, actualMaxDateTime);
         }
 
         [Test]
@@ -73,7 +74,7 @@ namespace Queo.Commons.Tests.Utils
             // when
             DateTime actualMaxDate = DateTimeUtils.Max(firstDay, secondDay);
             // then:
-            Assert.AreEqual(firstDay, actualMaxDate);
+            ClassicAssert.AreEqual(firstDay, actualMaxDate);
         }
 
         [Test]
@@ -85,7 +86,7 @@ namespace Queo.Commons.Tests.Utils
             // when:
             DateTime actualMaxDate = DateTimeUtils.Max(firstDay, secondDay);
             // then:
-            Assert.AreEqual(secondDay, actualMaxDate);
+            ClassicAssert.AreEqual(secondDay, actualMaxDate);
         }
 
         [Test]
@@ -97,7 +98,7 @@ namespace Queo.Commons.Tests.Utils
             // when:
             DateTime actualMinDay = DateTimeUtils.Min(firstDay, secondDay);
             // then:
-            Assert.AreEqual(firstDay, actualMinDay);
+            ClassicAssert.AreEqual(firstDay, actualMinDay);
         }
 
         [Test]
@@ -109,7 +110,7 @@ namespace Queo.Commons.Tests.Utils
             // when:
             DateTime actualMinDay = DateTimeUtils.Min(firstDay, secondDay);
             // then:
-            Assert.AreEqual(secondDay, actualMinDay);
+            ClassicAssert.AreEqual(secondDay, actualMinDay);
         }
     }
 }
