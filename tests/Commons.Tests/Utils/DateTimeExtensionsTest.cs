@@ -3,6 +3,7 @@ using System.Globalization;
 using System.Threading;
 
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 using Queo.Commons.Utils;
 
@@ -28,7 +29,7 @@ namespace Queo.Commons.Tests.Utils
             DateTime actualFirstDayOfWeek = dayInWeek.GetFirstDayOfWeek(specificCulture);
 
             // then:
-            Assert.AreEqual(expectedFirstDayInWeek, actualFirstDayOfWeek);
+            ClassicAssert.AreEqual(expectedFirstDayInWeek, actualFirstDayOfWeek);
         }
 
         [Test]
@@ -41,7 +42,7 @@ namespace Queo.Commons.Tests.Utils
             // when:
             DateTime actualFirstDayOfWeek = dayInWeek.GetFirstDayOfWeek();
             // then:
-            Assert.AreEqual(expectedFirstDayOfWeek, actualFirstDayOfWeek);
+            ClassicAssert.AreEqual(expectedFirstDayOfWeek, actualFirstDayOfWeek);
         }
     }
 }

@@ -1,6 +1,7 @@
 using System;
 
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace Queo.Commons.Tests
 {
@@ -12,7 +13,7 @@ namespace Queo.Commons.Tests
         {
             string expectedName = "Foo.Birthday";
             string actualPropertyNamePath = Objects.GetPropertyPath<Boo>(x => x.Foo.Birthday);
-            Assert.AreEqual(expectedName, actualPropertyNamePath);
+            ClassicAssert.AreEqual(expectedName, actualPropertyNamePath);
         }
 
         [Test]
@@ -20,7 +21,7 @@ namespace Queo.Commons.Tests
         {
             string expectedName = "Birthday";
             string actualPropertyNamePath = Objects.GetPropertyPath<Foo>(x => x.Birthday);
-            Assert.AreEqual(expectedName, actualPropertyNamePath);
+            ClassicAssert.AreEqual(expectedName, actualPropertyNamePath);
         }
 
         [Test]
@@ -28,7 +29,7 @@ namespace Queo.Commons.Tests
         {
             string expectedName = "Foo.Parent.Parent.Name";
             string actualPropertyNamePath = Objects.GetPropertyPath<Boo>(x => x.Foo.Parent.Parent.Name);
-            Assert.AreEqual(expectedName, actualPropertyNamePath);
+            ClassicAssert.AreEqual(expectedName, actualPropertyNamePath);
         }
 
         [Test]
@@ -36,7 +37,7 @@ namespace Queo.Commons.Tests
         {
             string expectedPropertyName = "Parent";
             string actualPropertyName = Objects.GetPropertyName<Foo>(x => x.Parent);
-            Assert.AreEqual(expectedPropertyName, actualPropertyName);
+            ClassicAssert.AreEqual(expectedPropertyName, actualPropertyName);
         }
 
         [Test]
@@ -44,7 +45,7 @@ namespace Queo.Commons.Tests
         {
             string expectedPropertyName = "Birthday";
             string actualPropertyName = Objects.GetPropertyName<Foo>(x => x.Birthday);
-            Assert.AreEqual(expectedPropertyName, actualPropertyName);
+            ClassicAssert.AreEqual(expectedPropertyName, actualPropertyName);
         }
 
         [Test]
@@ -52,7 +53,7 @@ namespace Queo.Commons.Tests
         {
             string expectedPropertyName = "Name";
             string actualPropertyName = Objects.GetPropertyName<Foo>(x => x.Name);
-            Assert.AreEqual(expectedPropertyName, actualPropertyName);
+            ClassicAssert.AreEqual(expectedPropertyName, actualPropertyName);
         }
 
         [Test]
@@ -60,7 +61,7 @@ namespace Queo.Commons.Tests
         {
             string expectedPropertyName = "Id";
             string actualPropertyName = Objects.GetPropertyName<Foo>(x => x.Id);
-            Assert.AreEqual(expectedPropertyName, actualPropertyName);
+            ClassicAssert.AreEqual(expectedPropertyName, actualPropertyName);
         }
 
         [Test]
@@ -68,7 +69,7 @@ namespace Queo.Commons.Tests
         {
             string expectedPropertyName = "Name";
             string actualPropertyName = Objects.GetPropertyName<Foo>(x => x.Parent.Parent.Parent.Name);
-            Assert.AreEqual(expectedPropertyName, actualPropertyName);
+            ClassicAssert.AreEqual(expectedPropertyName, actualPropertyName);
         }
     }
 
